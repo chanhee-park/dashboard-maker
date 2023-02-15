@@ -1,7 +1,5 @@
 import axios from 'axios';
-
 type HttpRequestMethods = 'get' | 'delete' | 'post' | 'put' | 'patch';
-
 const baseURL = `https://${process.env.REACT_APP_PROJECT_ID}-default-rtdb.firebaseio.com/`;
 console.log(baseURL);
 
