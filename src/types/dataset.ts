@@ -1,7 +1,7 @@
 interface Dataset {
-    title: string,
-    description?: string,
-    csvString: string
+  title: string;
+  description?: string;
+  csvString: string;
 }
 
-export type { Dataset }
+export type { Dataset };
