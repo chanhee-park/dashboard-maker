@@ -1,34 +1,18 @@
-import { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { getAllDatasets } from './api/dataset';
-import { Dataset } from './types/dataset';
+import DatasetDetailPage from './pages/DatasetDetailPage';
+import DatasetListPage from './pages/DatasetListPage';
 
 const App = () => {
-  const [datasets, setDatasets] = useState<Dataset[]>([]);
-
-  useEffect(() => {
-    void fetchAllDatasets();
-  }, []);
-
-  const fetchAllDatasets = async () => {
-    const nextDatasets = await getAllDatasets();
-    if (nextDatasets) {
-      setDatasets(nextDatasets);
-    }
-  };
-
   return (
     <div className="App">
       <h1>Dashboard Maker</h1>
-      <div>
-        {datasets.map((dataset) => (
-          <div key={`${dataset.title}}`}>
-            <h2>{dataset.title}</h2>
-            <p>{dataset.description ?? 'no description'}</p>
-            <p>{dataset.csvString}</p>
-          </div>
-        ))}
-      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/datasets" element={<DatasetListPage />} />
+          <Route path="/datasets/:datasetId" element={<DatasetDetailPage />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };
