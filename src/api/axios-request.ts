@@ -2,7 +2,6 @@ import axios from 'axios';
 
 type HttpRequestMethods = 'get' | 'delete' | 'post' | 'put' | 'patch';
 const baseURL = `https://${process.env.REACT_APP_PROJECT_ID}-default-rtdb.firebaseio.com/`;
-console.log(baseURL);
 
 const axiosClient = axios.create({
   baseURL,
@@ -23,16 +22,17 @@ const AxiosRequest = async (
   body?: Record<string, unknown>
 ) => {
   let response = null;
+  const jsonEndpoint = `${endpoint}.json`;
   try {
     if (method === 'get' || method === 'delete') {
-      response = await axiosClient[method](endpoint, {
+      response = await axiosClient[method](jsonEndpoint, {
         data: body,
         headers: {
           accept: 'application/json',
         },
       });
     } else {
-      response = await axiosClient[method](endpoint, body, {
+      response = await axiosClient[method](jsonEndpoint, body, {
         headers: {
           accept: 'application/json',
         },
@@ -42,12 +42,12 @@ const AxiosRequest = async (
     console.error('API ERROR::', e);
   }
 
-  if (response?.data) {
+  if (response?.data && Array.isArray(response.data)) {
     return response.data.filter(
       (item: unknown) => !!item !== undefined && item !== null
     );
   }
-  return response;
+  return response?.data ? response.data : null;
 };
 
 export default AxiosRequest;
