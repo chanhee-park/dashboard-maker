@@ -42,7 +42,6 @@ const AxiosRequest = async (
     console.error('API ERROR::', e)
   }
 
-  console.log(response?.data)
   if(response?.data) {
     return response.data.filter(((item:any) => !!item !== undefined && item !== null))
   } else {
