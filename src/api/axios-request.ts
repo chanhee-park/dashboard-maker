@@ -1,11 +1,10 @@
 import axios from 'axios';
 type HttpRequestMethods = 'get' | 'delete' | 'post' | 'put' | 'patch';
-
 const baseURL = `https://${process.env.REACT_APP_PROJECT_ID}-default-rtdb.firebaseio.com/`;
 console.log(baseURL);
 
 const axiosClient = axios.create({
-  baseURL: baseURL,
+  baseURL,
   timeout: 5000, // Set the default timeout for requests to 5 seconds
   responseType: 'json',
   headers: {
@@ -44,11 +43,10 @@ const AxiosRequest = async (
 
   if (response?.data) {
     return response.data.filter(
-      (item: any) => !!item !== undefined && item !== null
+      (item: unknown) => !!item !== undefined && item !== null
     );
-  } else {
-    return response;
   }
+  return response;
 };
 
 export default AxiosRequest;

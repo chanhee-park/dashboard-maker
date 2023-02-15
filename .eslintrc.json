@@ -16,7 +16,6 @@
   "plugins": [
     "testing-library", // React Testing Library 모범사례 추천
     "@typescript-eslint",
-    "@emotion",
     "react",
     "react-hooks",
     "simple-import-sort",
@@ -35,9 +34,6 @@
     "react/display-name": 0,
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
-    "@emotion/no-vanilla": 2,
-    "@emotion/import-from-emotion": 2,
-    "@emotion/styled-import": 2,
     "import/extensions": 0,
     "react/react-in-jsx-scope": 0,
     "react/jsx-filename-extension": 0,
