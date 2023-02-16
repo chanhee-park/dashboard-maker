@@ -1,6 +1,6 @@
 import { RawDateString } from './date-string';
 
-interface Dataset {
+export interface Dataset {
   title: string;
   description?: string;
   author?: string;
@@ -11,5 +11,3 @@ interface Dataset {
     createdAt: RawDateString;
   };
 }
-
-export type { Dataset };
