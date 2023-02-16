@@ -24,6 +24,7 @@ const DatasetListPage = () => {
         <div key={`${dataset.title}}`}>
           <h3>{dataset.title}</h3>
           <p>{dataset.description ?? 'no description'}</p>
+          <p>{dataset.author ?? 'no author'}</p>
           <p>{dataset.csvString}</p>
         </div>
       ))}

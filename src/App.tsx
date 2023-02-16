@@ -1,7 +1,6 @@
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded';
 import SaveRoundedIcon from '@mui/icons-material/SaveRounded';
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import SidebarLayout, { NavigationItem } from './layout/SidebarLayout';
