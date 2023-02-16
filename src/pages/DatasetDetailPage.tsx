@@ -1,35 +1,21 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { getDatasetById } from '../api/dataset';
-import { Dataset } from '../types/dataset';
-
-export async function loader({ datasetId }: { datasetId: string }) {
-  const dataset = await getDatasetById(datasetId);
-  return { dataset };
-}
+import { useDatasetById } from '../hooks/api/use-dataset-by-id';
 
 const DatasetDetailPage = () => {
-  const [dataset, setDataset] = useState<Dataset>();
   const { id: datasetId } = useParams();
+  if (!datasetId) {
+    return <div>유효하지 않은 id 입니다.</div>;
+  }
 
-  useEffect(() => {
-    void fetchAllDatasets();
-  }, []);
+  const { data: dataset } = useDatasetById(datasetId);
 
-  const fetchAllDatasets = async () => {
-    if (datasetId) {
-      const nextDataset = await getDatasetById(datasetId);
-      if (nextDataset) {
-        setDataset(nextDataset);
-      }
-    }
-  };
+  console.log(dataset);
 
   return (
     <div>
       <h2>Dataset</h2>
-      {!dataset && <p>조회된 데이터가 없습니다.</p>}
+      {!dataset && <p>조회된 데이터셋이 없습니다.</p>}
       {dataset && (
         <div key={`${dataset.title}}`}>
           <h3>{dataset.title}</h3>

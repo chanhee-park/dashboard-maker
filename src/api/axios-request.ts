@@ -12,6 +12,14 @@ const axiosClient = axios.create({
   },
 });
 
+function isNotNullOrUndefined(value: unknown) {
+  return value !== null && value !== undefined;
+}
+
+function isKeyValueObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null;
+}
+
 // 다음과 같은 API 호출을 수행하고자 하는 경우
 // METHOD: GET, URL: '/my-request'
 // 다음과 같이 실행합니다.
@@ -43,9 +51,13 @@ const AxiosRequest = async (
   }
 
   if (response?.data && Array.isArray(response.data)) {
-    return response.data.filter(
-      (item: unknown) => !!item !== undefined && item !== null
-    );
+    return response.data
+      .map((item: unknown, index: number) => {
+        return isKeyValueObject(item)
+          ? { ...item, id: index.toString() }
+          : item;
+      })
+      .filter((item: unknown) => isNotNullOrUndefined(item));
   }
   return response?.data ? response.data : null;
 };

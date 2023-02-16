@@ -1,12 +1,14 @@
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded';
 import SaveRoundedIcon from '@mui/icons-material/SaveRounded';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import SidebarLayout, { NavigationItem } from './layout/SidebarLayout';
 import DatasetDetailPage from './pages/DatasetDetailPage';
 import DatasetListPage from './pages/DatasetListPage';
 import IndexPage from './pages/IndexPage';
+const queryClient = new QueryClient();
 
 const App = () => {
   const navigationItems: NavigationItem[] = [
@@ -29,22 +31,24 @@ const App = () => {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <SidebarLayout
-          appTitle="Dashboard Generator"
-          navigationItems={navigationItems}
-        >
-          <Routes>
-            <Route path="/" element={<IndexPage />} />
-            <Route path="/dashboards" element={<IndexPage />} />
-            <Route path="/dashboards/:id" element={<IndexPage />} />
-            <Route path="/visualizations" element={<IndexPage />} />
-            <Route path="/visualizations/:id" element={<IndexPage />} />
-            <Route path="/datasets" element={<DatasetListPage />} />
-            <Route path="/datasets/:id" element={<DatasetDetailPage />} />
-          </Routes>
-        </SidebarLayout>
-      </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <BrowserRouter>
+          <SidebarLayout
+            appTitle="Dashboard Generator"
+            navigationItems={navigationItems}
+          >
+            <Routes>
+              <Route path="/" element={<IndexPage />} />
+              <Route path="/dashboards" element={<IndexPage />} />
+              <Route path="/dashboards/:id" element={<IndexPage />} />
+              <Route path="/visualizations" element={<IndexPage />} />
+              <Route path="/visualizations/:id" element={<IndexPage />} />
+              <Route path="/datasets" element={<DatasetListPage />} />
+              <Route path="/datasets/:id" element={<DatasetDetailPage />} />
+            </Routes>
+          </SidebarLayout>
+        </BrowserRouter>
+      </QueryClientProvider>
     </div>
   );
 };

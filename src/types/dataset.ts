@@ -1,13 +1,18 @@
 import { RawDateString } from './date-string';
 
-export interface Dataset {
+type DatumObject = {
+  [x: string]: string | number;
+};
+
+export interface DatasetAPIResponse {
+  csvString: string;
   title: string;
+  id: string;
   description?: string;
   author?: string;
-  csvString: string;
-  information: {
-    numberOfColumns: number;
-    numberOfRows: number;
-    createdAt: RawDateString;
-  };
+  createdAt?: RawDateString;
+}
+
+export interface Dataset extends DatasetAPIResponse {
+  data: DatumObject[];
 }

@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 
-import { ButtonProps } from '../../types/button-props';
+import { ButtonProps } from '../types/button-props';
 
 interface PageHeaderProps {
   title: string;
@@ -14,7 +14,7 @@ interface PageHeaderProps {
 
 const PageHeader = ({ title, description, actions }: PageHeaderProps) => {
   return (
-    <Box>
+    <Box sx={{ marginBottom: 4 }}>
       <Grid container spacing={2}>
         <Grid item xs={6}>
           <Typography variant="h3" gutterBottom>

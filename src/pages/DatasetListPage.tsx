@@ -1,23 +1,11 @@
-import { useEffect, useState } from 'react';
+import Stack from '@mui/material/Stack';
 
-import { getAllDatasets } from '../api/dataset';
+import DatasetCard from '../components/DatasetCard';
 import PageHeader from '../components/PageHeader';
-import { Dataset } from '../types/dataset';
+import { useAllDatasets } from '../hooks/api/use-all-datasets';
 
 const DatasetListPage = () => {
-  const [datasetList, setDatasetList] = useState<Dataset[]>([]);
-
-  useEffect(() => {
-    void fetchAllDatasets();
-  }, []);
-
-  const fetchAllDatasets = async () => {
-    const nextDatasetList = await getAllDatasets();
-    if (nextDatasetList) {
-      setDatasetList(nextDatasetList);
-    }
-  };
-
+  const { data: datasetList } = useAllDatasets();
   const actions = [
     {
       label: 'Create',
@@ -33,14 +21,12 @@ const DatasetListPage = () => {
         description="this is description"
         actions={actions}
       />
-      {datasetList.map((dataset) => (
-        <div key={`${dataset.title}}`}>
-          <h3>{dataset.title}</h3>
-          <p>{dataset.description ?? 'no description'}</p>
-          <p>{dataset.author ?? 'no author'}</p>
-          <p>{dataset.csvString}</p>
-        </div>
-      ))}
+      <Stack spacing={4} direction="row">
+        {datasetList &&
+          datasetList.map((dataset) => (
+            <DatasetCard key={`${dataset.title}}`} dataset={dataset} />
+          ))}
+      </Stack>
     </div>
   );
 };
