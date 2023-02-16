@@ -11,7 +11,7 @@ export async function loader({ datasetId }: { datasetId: string }) {
 
 const DatasetDetailPage = () => {
   const [dataset, setDataset] = useState<Dataset>();
-  const { datasetId } = useParams();
+  const { id: datasetId } = useParams();
 
   useEffect(() => {
     void fetchAllDatasets();
